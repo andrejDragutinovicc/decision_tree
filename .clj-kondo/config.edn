@@ -1,0 +1,6 @@
+{:linters
+ {:unresolved-symbol
+  {:exclude [(midje.sweet/fact)
+             (midje.sweet/facts)
+             (midje.sweet/tabular)
+             (midje.sweet/provided)]}}}

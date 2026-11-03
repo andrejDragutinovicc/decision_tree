@@ -5,4 +5,7 @@
             :url "https://www.eclipse.org/legal/epl-2.0/"}
   :dependencies [[org.clojure/clojure "1.12.2"]
                  [org.clojure/data.csv "1.1.0"]]
-  :repl-options {:init-ns seminarski-rad.core})
+  :repl-options {:init-ns seminarski-rad.core}
+  :profiles {:dev {:dependencies [[midje "1.10.10"]]
+                   :plugins      [[lein-midje "3.2.2"]]}})
+
