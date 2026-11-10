@@ -27,4 +27,44 @@
   [rows]
   (counter-prob (class-counts rows)))
 
-;Test commita?
+
+(defn gini
+  "gini index"
+  [rows]
+
+  (if (empty? rows)
+    0.0
+    (let [probs (vals (class-probabilities rows))]
+      (- 1.0 (reduce + (map (fn [v] (* v v) ) probs))))))
+
+(defn match
+  "Can question split the row"
+  [question row]
+
+  (let [{:keys [column value]} question row-value (get row column)]
+
+    (cond
+      (nil? row-value) false
+      (number? value ) (>= row-value value)
+      :else (= row-value value))))
+
+(defn split-rows
+  "docstring"
+  [ question rows]
+
+  (let [groups (group-by (partial match question) rows)]
+    [(vec (groups true))
+     (vec (groups false))]))
+
+(defn inf-gain
+  "docstring"[question rows]
+  (let [total (count rows)]
+    (if (zero? total)
+      0.0
+      (let [[da ne] (split-rows question rows)
+            prob-da (/ (count da) (double total))
+            prob-ne (/ (count ne) (double total))]
+        (- (gini rows)
+           (+ (* prob-da (gini da))
+              (* prob-ne (gini ne))))))))
+
