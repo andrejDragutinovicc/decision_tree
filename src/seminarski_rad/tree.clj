@@ -26,3 +26,5 @@
   "docstring"
   [rows]
   (counter-prob (class-counts rows)))
+
+;Test commita?
